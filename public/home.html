@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard · Expense Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">Fin<span>Track</span>
+  <p class="cap">Your Personal Finance Companion</p>
+  </div>
+  <nav>
+    <span id="whoami" class="muted" style="margin-right:14px;"></span>
+    <button class="ghost" onclick="logout()">Log out</button>
+  </nav>
+</div>
+
+<div class="page">
+
+  <!-- Ledger total + period tabs -->
+  <div class="card">
+    <div class="tabs">
+      <button id="tab-all" class="active" onclick="setPeriod('all')">Overview</button>
+      <button id="tab-month" onclick="setPeriod('month')">This Month</button>
+      <button id="tab-year" onclick="setPeriod('year')">This Year</button>
+    </div>
+
+    <div class="ledger">
+      <span class="label" id="totalLabel">Total spent</span>
+      <span class="amount">₹<span id="total">0</span></span>
+    </div>
+
+    <canvas id="chart"></canvas>
+  </div>
+
+  <!-- Add / edit expense -->
+  <div class="card">
+    <h2>Add an expense</h2>
+    <div class="row">
+      <input id="amount" type="number" min="0" step="0.01" placeholder="Amount (₹)">
+      <input id="category" placeholder="Category (e.g. Food)">
+    </div>
+    <button onclick="saveExpense()" id="saveBtn">Add expense</button>
+    <button class="ghost" id="cancelBtn" style="display:none;" onclick="cancelEdit()">Cancel edit</button>
+  </div>
+
+  <!-- Expense list -->
+  <div class="card">
+    <h2>All expenses</h2>
+    <table>
+      <thead><tr><th>Amount</th><th>Category</th><th>Date</th><th></th></tr></thead>
+      <tbody id="table"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

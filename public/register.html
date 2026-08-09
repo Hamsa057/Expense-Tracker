@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register · FinTrack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page">
+
+<div class="card auth-card">
+  <div class="brand" style="text-align:center; margin-bottom:18px;">Fin<span>Track</span></div>
+
+  <div id="error" class="muted" style="color:var(--bad); display:none;"></div>
+
+  <input id="username" placeholder="Choose a username">
+  <input id="password" type="password" placeholder="Choose a password" autocomplete="new-password">
+
+  <button type="button" class="block" onclick="register()">Create account</button>
+
+  <p class="muted" style="text-align:center;">Already have an account? <a class="link" href="index.html">Log in</a></p>
+</div>
+
+<script>
+async function register(){
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value;
+  const errorBox = document.getElementById("error");
+  errorBox.style.display = "none";
+
+  if(!username || !password){
+    showError("Fill in both fields.");
+    return;
+  }
+  if(password.length < 4){
+    showError("Password should be at least 4 characters.");
+    return;
+  }
+
+  try{
+    const res = await fetch("/register", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ username, password })
+    });
+
+    if(!res.ok){
+      const msg = await res.text();
+      showError(msg || "Registration failed.");
+      return;
+    }
+
+    window.location.assign("index.html");
+  }catch(err){
+    showError("Could not reach the server.");
+  }
+
+  function showError(msg){
+    errorBox.textContent = msg;
+    errorBox.style.display = "block";
+  }
+}
+</script>
+
+</body>
+</html>

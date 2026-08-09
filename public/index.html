@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login · FinTrack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page">
+
+<div class="card auth-card">
+  <div class="brand" style="text-align:center; margin-bottom:18px;">Fin<span>Track</span></div>
+
+  <div id="error" class="muted" style="color:var(--bad); display:none;"></div>
+
+  <input id="username" placeholder="Username" autocomplete="username">
+  <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+
+  <button type="button" class="block" onclick="login()">Log in</button>
+
+  <p class="muted" style="text-align:center;">New here? <a class="link" href="register.html">Create an account</a></p>
+</div>
+
+<script src="app.js"></script>
+<script>
+async function login(){
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value;
+  const errorBox = document.getElementById("error");
+  errorBox.style.display = "none";
+
+  if(!username || !password){
+    showError("Enter your username and password.");
+    return;
+  }
+
+  try{
+    const res = await fetch("/login", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ username, password })
+    });
+
+    if(!res.ok){
+      const msg = await res.text();
+      showError(msg || "Login failed.");
+      return;
+    }
+
+    localStorage.setItem("currentUser", username);
+    window.location.assign("home.html");
+  }catch(err){
+    showError("Could not reach the server.");
+  }
+
+  function showError(msg){
+    errorBox.textContent = msg;
+    errorBox.style.display = "block";
+  }
+}
+</script>
+
+</body>
+</html>

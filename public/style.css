@@ -1,0 +1,231 @@
+:root{
+  --bg: #F3F4FA;
+  --card: #FFFFFF;
+  --ink: #1E1B2E;
+  --muted: #6B7280;
+  --line: #E7E7F3;
+  --primary: #2f22e6;
+  --primary-dark: #1b1a29;
+  --primary-light: #EDEBFF;
+  --good: #12946A;
+  --bad: #E5484D;
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(43, 33, 133, 0.08);
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  margin:0;
+  min-height:100vh;
+}
+
+h1, h2, .brand{
+  font-family:'Sora', 'Inter', system-ui, sans-serif;
+}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:var(--card);
+  padding:16px 28px;
+  border-bottom:1px solid var(--line);
+}
+
+.brand{
+  font-weight:700;
+  font-size:42px;
+  color:var(--primary-dark);
+  letter-spacing:-0.02em;
+}
+
+.brand span{ color:var(--primary); }
+
+.cap{
+  font-size:17px;
+  color:var(--muted);
+  margin-left:6px;
+  font-weight:600;
+}
+
+.topbar nav button{
+  background:transparent;
+  color:var(--muted);
+  font-weight:600;
+  box-shadow:none;
+}
+.topbar nav button.active{
+  color:var(--primary);
+}
+.topbar nav button:hover{
+  background:var(--primary-light);
+  color:var(--primary-dark);
+}
+
+/* ---------- Layout ---------- */
+.page{
+  max-width:880px;
+  margin:0 auto;
+  padding:28px 20px 60px;
+}
+
+.auth-page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* ---------- Card ---------- */
+.card{
+  background:var(--card);
+  padding:26px;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  border:1px solid var(--line);
+  margin-bottom:22px;
+}
+
+.card h2{
+  margin-top:0;
+  font-size:1.05rem;
+  color:var(--muted);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+
+.auth-card{
+  width:340px;
+}
+
+/* ---------- Inputs ---------- */
+input, select{
+  width:100%;
+  padding:12px 14px;
+  margin:6px 0;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#FBFBFF;
+  font-size:.95rem;
+  font-family:inherit;
+}
+input:focus, select:focus{
+  outline:2px solid var(--primary);
+  outline-offset:1px;
+  background:#fff;
+}
+
+/* ---------- Buttons ---------- */
+button{
+  padding:11px 18px;
+  margin:4px 4px 4px 0;
+  border:none;
+  border-radius:10px;
+  background:var(--primary);
+  color:white;
+  font-weight:600;
+  font-size:.9rem;
+  cursor:pointer;
+  transition:background .15s ease, transform .1s ease;
+}
+button:hover{ background:var(--primary-dark); }
+button:active{ transform:scale(.98); }
+
+button.ghost{
+  background:transparent;
+  color:var(--primary);
+  border:1px solid var(--primary);
+}
+button.ghost:hover{ background:var(--primary-light); }
+
+button.danger{ background:var(--bad); }
+button.danger:hover{ background:#c33; }
+
+button.block{ width:100%; }
+
+/* ---------- Ledger / total ---------- */
+.ledger{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  border-bottom:2px dashed var(--line);
+  padding-bottom:14px;
+  margin-bottom:14px;
+}
+.ledger .amount{
+  font-family:'Sora', sans-serif;
+  font-size:2.2rem;
+  font-weight:700;
+  color:var(--primary-dark);
+}
+.ledger .label{
+  color:var(--muted);
+  font-weight:600;
+  text-transform:uppercase;
+  font-size:.75rem;
+  letter-spacing:.08em;
+}
+
+/* ---------- Tabs ---------- */
+.tabs{
+  display:flex;
+  gap:6px;
+  margin-bottom:18px;
+}
+.tabs button{
+  background:var(--primary-light);
+  color:var(--primary-dark);
+  flex:1;
+}
+.tabs button.active{
+  background:var(--primary);
+  color:white;
+}
+
+/* ---------- Table ---------- */
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:var(--card);
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  border:1px solid var(--line);
+}
+th{
+  background:var(--primary-light);
+  color:var(--primary-dark);
+  padding:12px;
+  text-align:left;
+  font-size:.8rem;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+td{
+  padding:11px 12px;
+  border-top:1px solid var(--line);
+}
+tr:nth-child(even) td{ background:#FAFAFF; }
+
+td button{ padding:6px 12px; font-size:.8rem; }
+
+.empty-row td{
+  text-align:center;
+  color:var(--muted);
+  padding:26px;
+  font-style:italic;
+}
+
+/* ---------- Misc ---------- */
+.row{ display:flex; gap:10px; }
+.row > *{ flex:1; }
+.muted{ color:var(--muted); font-size:.85rem; }
+.link{ color:var(--primary); font-weight:600; text-decoration:none; }
+.link:hover{ text-decoration:underline; }
+canvas{ max-height:320px; }
