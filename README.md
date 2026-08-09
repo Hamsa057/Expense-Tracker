@@ -1,25 +1,18 @@
 # Expense Ledger
 
-A simplified rebuild of the expense manager: 7 files instead of 14, one shared
-script, one dashboard page, and login backed by the database instead of
-`localStorage`.
+A simple expense tracker with login/register, a dashboard for adding and
+managing expenses, and monthly/yearly spending analysis with charts.
 
-## What changed
+## Features
 
-- **Fewer files.** `monthly.html`, `yearly.html`, `reports.js`, and `script.js`
-  are gone. `home.html` now has an *Overview / This Month / This Year* tab
-  switcher that reuses the same table and chart.
-- **Real login.** Registering and logging in now check the MySQL `users`
-  table (password hashed with `scrypt`), instead of only living in the
-  browser's `localStorage`. `localStorage` is still used client-side just to
-  remember *who's currently logged in* on this device.
-- **Cleaner API.** `GET/POST/PUT/DELETE /expenses` replaces the old mix of
-  `/add`, `/update/:id`, `/delete/:id` GET-based deletes, and separate
-  `/monthlyTotal` / `/yearlyTotal` routes — one endpoint filtered by
+- **Login & register**, backed by MySQL — passwords are hashed with
+  `scrypt`, not stored in plain text.
+- **Dashboard** with a running total, an add/edit/delete expense form, and
+  a full expense table.
+- **Overview / This Month / This Year** tabs on the dashboard, each with a
+  bar chart of spending by category.
+- Clean REST-style API: `GET/POST/PUT/DELETE /expenses`, filterable by
   `?period=month|year|all`.
-- **New color palette** — indigo/violet primary with a soft off-white
-  background, replacing the pink/blue combo — plus Sora + Inter for
-  headings/body text.
 
 ## Setup
 
@@ -27,23 +20,42 @@ script, one dashboard page, and login backed by the database instead of
    ```
    npm install
    ```
-2. Create the database and tables:
+2. Create the database and tables.
+
+   On macOS/Linux:
    ```
    mysql -u root -p < schema.sql
    ```
-3. Set your DB credentials as environment variables (or edit the defaults in
-   `db.js`):
+   On Windows PowerShell:
+   ```
+   Get-Content schema.sql | mysql -u root -p
+   ```
+   (or open `mysql -u root -p` and run `source schema.sql` from the prompt)
+
+3. Set your DB credentials as environment variables (or edit the defaults
+   in `db.js`):
+
+   macOS/Linux:
    ```
    export DB_HOST=localhost
    export DB_USER=root
    export DB_PASSWORD=yourpassword
    export DB_NAME=expenseDB
    ```
+   Windows PowerShell:
+   ```
+   $env:DB_HOST="localhost"
+   $env:DB_USER="root"
+   $env:DB_PASSWORD="yourpassword"
+   $env:DB_NAME="expenseDB"
+   ```
+
 4. Start the server:
    ```
    npm start
    ```
-5. Open `http://localhost:3000`.
+
+5. Open `http://localhost:3000` — register an account, then log in.
 
 ## File map
 
