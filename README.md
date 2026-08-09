@@ -1,4 +1,4 @@
-# Expense Tracker
+# Fin Tracker
 
 A simple expense tracker with login/register, a dashboard for adding and
 managing expenses, and monthly/yearly spending analysis with charts.
